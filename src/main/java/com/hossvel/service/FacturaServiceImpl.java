@@ -7,8 +7,11 @@ import com.hossvel.builder.IFacturaBuilder;
 import com.hossvel.factory.FacturaFactory;
 import com.hossvel.model.Factura;
 import com.hossvel.model.FacturaDTO;
+import com.hossvel.repository.FacturaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
+import java.util.Set;
 
 @ApplicationScoped
 public class FacturaServiceImpl implements IFacturaService{
@@ -16,11 +19,22 @@ public class FacturaServiceImpl implements IFacturaService{
     @Inject
     FacturaFactory facturaFactory;
 
-    public Factura construirFactura(FacturaDTO dto) {
+    @Inject
+    FacturaRepository facturaRepository;
+
+    public Factura crearFactura(FacturaDTO dto) {
 
         IFacturaBuilder builder = facturaFactory.createFactory(dto.tipo);
         FacturaDirector director = new FacturaDirector(builder);
         director.construirFactura(dto.cliente, dto.direccion, dto.subtotal);
-        return director.getFactura();
+        Factura factura = director.getFactura();
+        return facturaRepository.guardar(factura);
+
     }
+
+    @Override
+    public Set<Factura> listAll() {
+        return facturaRepository.listAll();
+    }
+
 }

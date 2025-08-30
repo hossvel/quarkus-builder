@@ -9,7 +9,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class FacturaFactory {
 
     public IFacturaBuilder createFactory(String factureType) {
-        System.out.println(factureType);
         return switch (factureType.toLowerCase()) {
             case "nacional" -> new FacturaNacionalBuilder();
             case "internacional" -> new FacturaInternacionalBuilder();

@@ -61,6 +61,14 @@ If you want to learn more about building native executables, please consult <htt
 
 ### REST
 
-Easily start your REST Web Services
+### GET all factura
+http://localhost:8080/factura
+### POST factura
+http://localhost:8080/factura
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+{
+"tipo": "internacional",
+"cliente": "client1",
+"direccion": "direccion 1",
+"subtotal": 1200.0
+}

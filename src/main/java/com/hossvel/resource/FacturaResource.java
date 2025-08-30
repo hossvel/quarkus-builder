@@ -4,9 +4,12 @@ import com.hossvel.model.Factura;
 import com.hossvel.model.FacturaDTO;
 import com.hossvel.service.IFacturaService;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
+
+import java.util.Set;
 
 @Path("/factura")
 
@@ -18,10 +21,14 @@ public class FacturaResource {
     @POST
     public Response crearFactura(FacturaDTO facturaDTO) {
 
-        Factura factura =  ifacturaService.construirFactura(facturaDTO);
+        Factura factura =  ifacturaService.crearFactura(facturaDTO);
 
- //       ifacturaService.guardarFactura(factura);
         return Response.status(Response.Status.CREATED).entity(factura).build();
+    }
+
+    @GET
+    public Set<Factura> listAll() {
+        return ifacturaService.listAll();
     }
 
 }
